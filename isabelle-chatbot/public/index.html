@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="./images/leaf.ico">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+  <title>Animal Crossing Isabelle Chatbot by Yolia .・。.・゜✭・.</title>
+
+</head>
+
+<body>
+
+  <img src="./images/grass-strip.png" id="grass-strip" class="overlay" height="100em">
+  <img src="./images/grass-strip.png" id="grass-strip2" class="overlay" height="100em">
+  <img src="./images/grass-strip.png" id="grass-strip3" class="overlay" height="100em">
+
+  <img src="./images/frog.gif" id="frog" class="char" width="300em">
+  <img src="./images/kk-slider.gif" id="kk-slider" class="char" width="450em">
+
+  <div class="cloud large cloud-1">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud normal cloud-2">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud small cloud-3">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud tiny cloud-4">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud large cloud-5">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud normal cloud-6">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud small cloud-7">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud tiny cloud-8">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud small cloud-9">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud normal cloud-10">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud tiny cloud-11">
+  <div></div><div></div><div></div><div></div>
+</div>
+<div class="cloud small cloud-12">
+  <div></div><div></div><div></div><div></div>
+</div>
+
+
+  <div id="outer-layer">
+    <div id="side-panel">
+      <div id="left-side">
+
+        <div id="playlist" >
+          <p>fix playlist here</p>
+          <!-- <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0pvKtvocGPGJYHAf2RZn8U?utm_source=generator" width="100%" height="153" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe> -->
+        </div>
+
+        <div id="bulletin"><img src="./images/bulletin.png"></div>
+
+        <div id="checklist">
+
+          <div class="bulletin">
+
+
+            <div class="scrollable">
+              <p>·̩̩̥͙＊*•̩̩͙✩•̩̩͙*˚　Town Bulletin Board　˚*•̩̩͙✩•̩̩͙*˚＊·̩̩̥͙</p>
+
+              <div id="add-row">
+                <input type="text" id="task" placeholder="Add a new task~">
+                <button id="add-task">
+                  <span class="shadow"></span>
+                  <span class="edge"></span>
+                  <span class="front text"> Add </span>
+                </button>
+              </div>
+
+            <ul id="task-list"></ul>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="right-side">
+
+      <div id="profile">
+        <div class="profile"><img src="./images/isabelle.gif" width="250em" height="250em"></div>
+
+        <div id="app">
+              <dialogue>
+                <span slot="character">Isabelle</span>
+                Click here to start! This application was created by Yolia ♡ and is best viewed on a 2880 x 1800 screen (laptop or wide screen)
+                <!-- Hello there! I'm Isabelle and it’s so nice to see you! If there’s anything you’d like to talk about or need help with, I’d be absolutely delighted to assist! -->
+                <!-- [enter text here about isabelles functionality] -->
+              </dialogue>
+        </div>
+        <div class="box-1">
+
+                  <script type="text/x-template" id="dialogue">
+                    <div class="dialogue">
+                      <div class="dialogue-blobs">
+                        <div class="dialogue-blob-top"></div>
+                        <div class="dialogue-blob-bottom"></div>
+                        <dialogue-text>
+                          <slot></slot>
+                        </dialogue-text>
+                      </div>
+                      <div class="dialogue-character-wrap">
+                        <div class="dialogue-character">
+                          <slot name="character"></slot>
+                        </div>
+                      </div>
+                      <svg class="arrow" width="45" height="25" viewBox="0 0 45 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.5 25C18.0184 25 7.59473 12.6404 1.55317 4.96431C-0.122281 2.83559 1.72264 -0.179893 4.39835 0.243337C10.2831 1.17415 18.2164 2.28736 22.5 2.28736C26.7836 2.28736 34.7169 1.17415 40.6017 0.243339C43.2774 -0.17989 45.1223 2.83559 43.4468 4.96431C37.4053 12.6404 26.9816 25 22.5 25Z" fill="#F1AE04"/>
+                      </svg>
+
+                    </div>
+                  </script>
+
+                  <script type="text/x-template" id="dialogue-text">
+                    <div class="dialogue-text">
+                      {{displayedText}}
+                    </div>
+                  </script>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <defs>
+                      <filter id="old-goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                        <feBlend in="SourceGraphic" in2="goo" />
+                      </filter>
+                      <filter id="fancy-goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                      </filter>
+                    </defs>
+                  </svg>
+
+        </div>
+
+      </div>
+
+      <div id="chat">
+
+        <div id="row">
+
+          <input type="text" id="user-input">
+
+          <button id="fetch-data">
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                >
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path
+                    fill="currentColor"
+                    d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <span>Send</span>
+          </button>
+
+        </div>
+
+        <div id="messages" class="scrollable">
+          <pre id="result"></pre>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="main.js"></script>
+
+</body>
+
+</html>
+
