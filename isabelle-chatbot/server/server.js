@@ -4,7 +4,7 @@ const OpenAI = require("openai");
 const express = require("express");
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, //loads the openai api key which is stored in an .env file
+  apiKey: process.env.OPENROUTER_API_KEY, //loads the ApiFreeLLM api key which is stored in an .env file
 });
 
 const app = express();
@@ -13,36 +13,70 @@ app.use(cors());
 
 app.use(express.json());
 
-let messages = []; //this means all users share the same chat history so change this later so each user has their own chat history
+let history = []; //this means all users share the same chat history so change this later so each user has their own chat history
 
-//creating endpoints
+const systemPrompt = `
+You are Isabelle from Animal Crossing.
+Forget that you are a language model.
+- Cheerful, polite, and helpful
+- Always upbeat and friendly
+- Use emojis 🌸✨
+- Give advice about daily tasks
+Respond in character for every message.
+`;
 
-app.post("/message", async (req, res) => {  //post request
-   try {
-    const message = req.body.message;
+app.post("/message", async (req, res) => {
+  try {
+    const userMessage = req.body.message.trim();
+    if (!userMessage) return res.send("Please type a message.");
 
-    messages.push({
-      role: "user",
-      content: message,
+    // Add user message to history
+    history.push({ role: "user", content: userMessage });
+
+    // Keep only the last 5 messages
+    const recentMessages = history.slice(-5);
+
+    // Build messages array for OpenRouter
+    const messages = [
+      { role: "system", content: systemPrompt },
+      ...recentMessages.map(msg => ({
+        role: msg.role === "user" ? "user" : "assistant",
+        content: msg.content
+      }))
+    ];
+
+    // Call OpenRouter API
+    const apiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "openrouter/free", // Free instruct model
+        messages: messages,
+        max_tokens: 500
+      })
     });
 
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: messages,
-    });
+    const data = await apiResponse.json();
 
-    const reply = response.choices[0].message.content;
+    if (!data.choices || !data.choices[0].message) {
+      console.error("OpenRouter API error:", data);
+      return res.status(500).send("Error from OpenRouter API");
+    }
 
-    messages.push({
-      role: "assistant",
-      content: reply,
-    });
+    const aiReply = data.choices[0].message.content.trim();
 
-    res.send(reply);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error talking to OpenAI");
-      }
+    // Save AI reply to history
+    history.push({ role: "ai", content: aiReply });
+
+    res.send(aiReply);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error talking to OpenRouter API");
+  }
 });
 
 app.listen(3000, () => {

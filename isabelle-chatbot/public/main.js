@@ -134,14 +134,14 @@ async function sendMessage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: message }),
+      body: JSON.stringify({ message: "Hello Isabelle!" }),
     });
 
     // const reply = await response.text();
     const reply = "I’m just a test response for now! 🌸";
 
     // Show AI reply
-    result.textContent += "Isabelle says: " + reply + "\n";
+    result.textContent += "Isabelle: " + reply + "\n";
   } catch (err) {
     console.error(err);
     result.textContent += "Error talking to server.\n";
